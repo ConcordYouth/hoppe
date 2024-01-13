@@ -103,46 +103,49 @@ int main() {
         std::cout << "how many numbers should be in each set: ";
         std::cin >> set_size;
         std::vector<int> set;
+        int low_number;
+        std::cout << "how low should the numbers start in this solution set: ";
+        std::cin >> low_number;
         int number;
         std::cout << "how high should the numbers go within this set: ";
         std::cin >> number;
         std::map<std::string, std::vector<std::vector<int>>> ans;
-        for (int i = 1; i <= set_size; ++i) {
+        for (int i = low_number; i <= low_number + set_size; ++i) {
             set.push_back(i);
         }
 
         addToVector(number, set, ans, 0);
         int number_of_solutions = 1;
-        // std::cout << "how many solutions should exist for the scenario "
-        //              "(type -1 to restart): ";
-        // std::cin >> number_of_solutions;
-        // std::cout << "\n";
-        // while (number_of_solutions != -1) {
-        int results = 0;
-        int unique_elements = 0;
-        for (const auto& entry : ans) {
-            if (entry.second.size() >= number_of_solutions) {
-                // std::cout << "Key: " << entry.first << ", Values: ";
-                for (const std::vector<int> vec : entry.second) {
-                    std::cout << "[ ";
-                    for (const int& number : vec) {
-                        std::cout << number << " ";
+        std::cout << "how many solutions should exist for the scenario "
+                     "(type -1 to restart): ";
+        std::cin >> number_of_solutions;
+        std::cout << "\n";
+        while (number_of_solutions != -1) {
+            int results = 0;
+            int unique_elements = 0;
+            for (const auto& entry : ans) {
+                if (entry.second.size() >= number_of_solutions) {
+                    // std::cout << "Key: " << entry.first << ", Values: ";
+                    for (const std::vector<int> vec : entry.second) {
+                        std::cout << "[ ";
+                        for (const int& number : vec) {
+                            std::cout << number << " ";
+                        }
+                        std::cout << "] ";
+                        ++unique_elements;
                     }
-                    std::cout << "] ";
-                    ++unique_elements;
+                    ++results;
+                    std::cout << "\n";
                 }
-                ++results;
-                std::cout << "\n";
             }
+            std::cout << "returned " << results << " results, containing "
+                      << unique_elements
+                      << " unique elements and each element contains at least "
+                      << number_of_solutions << " unique elements\n\n";
+            std::cout << "how many solutions should exist for the scenario "
+                         "(type -1 to restart): ";
+            std::cin >> number_of_solutions;
+            std::cout << "\n";
         }
-        std::cout << "returned " << results << " results, containing "
-                  << unique_elements
-                  << " unique elements and each element contains at least "
-                  << number_of_solutions << " unique elements\n\n";
-        // std::cout << "how many solutions should exist for the scenario "
-        //              "(type -1 to restart): ";
-        // std::cin >> number_of_solutions;
-        // std::cout << "\n";
     }
-    // }
 }
